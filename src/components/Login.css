@@ -61,6 +61,35 @@
   margin-top: 10px;
 }
 
+.toggle-mode {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--light-gray);
+  text-align: center;
+}
+
+.toggle-mode p {
+  color: var(--gray);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: var(--primary-blue);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 8px;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.toggle-btn:hover {
+  color: var(--dark-blue);
+}
+
 .demo-credentials {
   margin-top: 30px;
   padding-top: 20px;
@@ -86,5 +115,9 @@
   
   .logo-icon {
     font-size: 3rem;
+  }
+  
+  .toggle-mode {
+    margin-top: 25px;
   }
 }
