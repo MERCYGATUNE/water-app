@@ -20,11 +20,10 @@ const LandingPage = () => {
         <div className="hero-content">
           <div className="hero-text">
             <h1 className="hero-title">
-              <span className="gradient-text">AI-Powered</span> Water Management
+              <span className="gradient-text">Smart Water Insights</span> in a Changing Climate
             </h1>
             <p className="hero-subtitle">
-              Revolutionizing water resource management in Kenya with intelligent monitoring, 
-              real-time insights, and AI-powered recommendations for sustainable water distribution.
+              💧 We use AI to track reservoir levels, forecast shortages, and guide communities toward safe water access. In an era where climate change is straining resources, our platform helps people find water faster, plan smarter, and stay resilient.
             </p>
             <div className="hero-buttons">
               <button className="cta-primary" onClick={handleGoToDemo}>
