@@ -1,5 +1,27 @@
 # Water Reservoir Management System
 
+> **💧 A comprehensive AI-powered water reservoir management application built specifically for Kenya, featuring real-time monitoring, intelligent forecasting, and smart recommendations to ensure sustainable water resource management.**
+
+## 🌟 **Project Overview**
+
+The Water Reservoir Management System is a cutting-edge web application designed to address Kenya's water management challenges. It provides real-time monitoring of water reservoirs across the country, offering intelligent insights and AI-powered recommendations to water authorities, farmers, and communities.
+
+### **🎯 Key Problems Solved:**
+- **Water Scarcity Monitoring**: Track reservoir levels and predict runout dates
+- **Quality Management**: Monitor water quality across different locations
+- **Resource Optimization**: AI-powered recommendations for efficient water distribution
+- **Emergency Alerts**: Early warning system for critical water situations
+- **Data Accessibility**: Centralized platform for water resource information
+
+### **🚀 What Makes It Special:**
+- **AI-Powered Intelligence**: Inflection AI integration for smart recommendations
+- **Kenya-Specific Data**: Authentic reservoir data from 12+ Kenyan counties
+- **Real-time Updates**: Live monitoring and instant notifications
+- **User-Friendly Interface**: Modern, responsive design for all devices
+- **Professional Authentication**: Secure JWT-based user management
+
+---
+
 A comprehensive water reservoir management application built for Kenya, featuring real-time monitoring, **AI-powered intelligent recommendations**, and user management.
 
 ## 🏗️ Project Structure
