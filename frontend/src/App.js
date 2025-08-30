@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
+import LandingPage from './components/LandingPage';
 import './App.css';
 
 function App() {
@@ -59,6 +60,10 @@ function App() {
         {isAuthenticated && <Header user={user} onLogout={handleLogout} />}
         <Routes>
           <Route 
+            path="/" 
+            element={<LandingPage />}
+          />
+          <Route 
             path="/login" 
             element={
               isAuthenticated ? 
@@ -71,14 +76,6 @@ function App() {
             element={
               isAuthenticated ? 
               <Dashboard user={user} /> : 
-              <Navigate to="/login" replace />
-            } 
-          />
-          <Route 
-            path="/" 
-            element={
-              isAuthenticated ? 
-              <Navigate to="/dashboard" replace /> : 
               <Navigate to="/login" replace />
             } 
           />
