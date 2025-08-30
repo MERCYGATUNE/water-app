@@ -98,24 +98,57 @@
   border-radius: var(--border-radius);
 }
 
+/* Water Quality Indicators */
+.quality-excellent {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.quality-good {
+  color: #3498db;
+  font-weight: bold;
+}
+
+.quality-fair {
+  color: #f39c12;
+  font-weight: bold;
+}
+
+.quality-poor {
+  color: #e67e22;
+  font-weight: bold;
+}
+
+.quality-critical {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* Enhanced Detail Items */
 .detail-item {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  align-items: flex-start;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .detail-item:last-child {
-  margin-bottom: 0;
+  border-bottom: none;
 }
 
 .detail-label {
-  color: var(--dark-gray);
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 120px;
+  margin-right: 15px;
 }
 
 .detail-value {
-  color: var(--gray);
-  font-family: monospace;
+  color: var(--text-primary);
+  text-align: right;
+  flex: 1;
+  word-break: break-word;
 }
 
 .card-footer {
@@ -130,6 +163,7 @@
   font-size: 14px;
 }
 
+/* Responsive improvements */
 @media (max-width: 768px) {
   .reservoir-header h3 {
     font-size: 1.2rem;
@@ -145,5 +179,20 @@
   
   .reservoir-details {
     padding: 12px;
+  }
+
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .detail-label {
+    min-width: auto;
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+  
+  .detail-value {
+    text-align: left;
   }
 }

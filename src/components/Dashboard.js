@@ -10,81 +10,52 @@ const Dashboard = ({ user }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Simulate loading reservoirs data
+    // Load reservoirs data from backend API
     const loadReservoirs = async () => {
       try {
         setIsLoading(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
         
-        // Mock data for demonstration
-        const mockReservoirs = [
-          {
-            id: 1,
-            name: "Central Valley Reservoir",
-            location: "San Francisco, CA",
-            capacity: 85,
-            currentLevel: 72,
-            lastUpdated: "2024-01-15",
-            coordinates: { lat: 37.7749, lng: -122.4194 },
-            estimatedRunout: "2024-06-15"
+        // Fetch data from backend API
+        const response = await fetch('http://localhost:8080/api/reservoirs', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
           },
-          {
-            id: 2,
-            name: "Mountain Lake Reservoir",
-            location: "San Francisco, CA",
-            capacity: 100,
-            currentLevel: 45,
-            lastUpdated: "2024-01-15",
-            coordinates: { lat: 37.7849, lng: -122.4094 },
-            estimatedRunout: "2024-04-20"
-          },
-          {
-            id: 3,
-            name: "Golden Gate Reservoir",
-            location: "San Francisco, CA",
-            capacity: 95,
-            currentLevel: 88,
-            lastUpdated: "2024-01-15",
-            coordinates: { lat: 37.7649, lng: -122.4294 },
-            estimatedRunout: "2024-08-10"
-          },
-          {
-            id: 4,
-            name: "Bay Area Reservoir",
-            location: "Oakland, CA",
-            capacity: 90,
-            currentLevel: 32,
-            lastUpdated: "2024-01-15",
-            coordinates: { lat: 37.8049, lng: -122.3994 },
-            estimatedRunout: "2024-03-15"
-          },
-          {
-            id: 5,
-            name: "Pacific Heights Reservoir",
-            location: "San Francisco, CA",
-            capacity: 80,
-            currentLevel: 67,
-            lastUpdated: "2024-01-15",
-            coordinates: { lat: 37.7949, lng: -122.4194 },
-            estimatedRunout: "2024-05-25"
-          },
-          {
-            id: 6,
-            name: "Marina Reservoir",
-            location: "San Francisco, CA",
-            capacity: 75,
-            currentLevel: 91,
-            lastUpdated: "2024-01-15",
-            coordinates: { lat: 37.8049, lng: -122.4294 },
-            estimatedRunout: "2024-09-20"
-          }
-        ];
+        });
         
-        setReservoirs(mockReservoirs);
-        setFilteredReservoirs(mockReservoirs);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Transform backend data to frontend format
+        const transformedReservoirs = data.map(reservoir => ({
+          id: reservoir.id,
+          name: reservoir.name,
+          location: `${reservoir.subCounty}, ${reservoir.county}`,
+          capacity: 100, // Total capacity as percentage
+          currentLevel: Math.round((reservoir.currentLevelM3 / reservoir.totalCapacityM3) * 100),
+          lastUpdated: reservoir.lastUpdated ? new Date(reservoir.lastUpdated).toLocaleDateString() : 'N/A',
+          coordinates: { lat: reservoir.latitude, lng: reservoir.longitude },
+          estimatedRunout: reservoir.estimatedRunoutDate ? new Date(reservoir.estimatedRunoutDate).toLocaleDateString() : 'N/A',
+          waterQuality: reservoir.waterQualityRating,
+          managedBy: reservoir.managedBy,
+          description: reservoir.description,
+          contactPhone: reservoir.contactPhone,
+          contactEmail: reservoir.contactEmail,
+          totalCapacityM3: reservoir.totalCapacityM3,
+          currentLevelM3: reservoir.currentLevelM3,
+          county: reservoir.county,
+          subCounty: reservoir.subCounty,
+          ward: reservoir.ward
+        }));
+        
+        setReservoirs(transformedReservoirs);
+        setFilteredReservoirs(transformedReservoirs);
       } catch (err) {
-        setError('Failed to load reservoir data');
+        console.error('Error loading reservoirs:', err);
+        setError('Failed to load reservoir data from backend. Please ensure the backend is running.');
       } finally {
         setIsLoading(false);
       }
@@ -98,14 +69,15 @@ const Dashboard = ({ user }) => {
     
     if (searchTerm) {
       filtered = filtered.filter(reservoir => 
-        reservoir.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        reservoir.location.toLowerCase().includes(searchTerm.toLowerCase())
+        reservoir.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
     
     if (location) {
       filtered = filtered.filter(reservoir => 
-        reservoir.location.toLowerCase().includes(location.toLowerCase())
+        reservoir.county.toLowerCase().includes(location.toLowerCase()) ||
+        reservoir.subCounty.toLowerCase().includes(location.toLowerCase()) ||
+        reservoir.ward.toLowerCase().includes(location.toLowerCase())
       );
     }
     
@@ -118,12 +90,14 @@ const Dashboard = ({ user }) => {
 
   if (isLoading) {
     return (
-      <div className="main-content">
-        <div className="container">
-          <div className="loading">
-            <h2>Loading reservoir data...</h2>
-            <p>Please wait while we fetch the latest information</p>
-          </div>
+      <div className="dashboard">
+        <div className="dashboard-header">
+          <h1>Water Reservoir Dashboard</h1>
+          <p>Welcome back, {user.name}!</p>
+        </div>
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Loading Kenyan water reservoirs...</p>
         </div>
       </div>
     );
@@ -131,39 +105,51 @@ const Dashboard = ({ user }) => {
 
   if (error) {
     return (
-      <div className="main-content">
-        <div className="container">
-          <div className="error">
-            <h2>Error</h2>
-            <p>{error}</p>
-          </div>
+      <div className="dashboard">
+        <div className="dashboard-header">
+          <h1>Water Reservoir Dashboard</h1>
+          <p>Welcome back, {user.name}!</p>
+        </div>
+        <div className="error-container">
+          <p className="error-message">{error}</p>
+          <button onClick={() => window.location.reload()} className="retry-btn">
+            Retry
+          </button>
         </div>
       </div>
     );
   }
 
+  const totalReservoirs = filteredReservoirs.length;
+  const averageCapacity = filteredReservoirs.length > 0 
+    ? Math.round(filteredReservoirs.reduce((sum, r) => sum + r.currentLevel, 0) / filteredReservoirs.length)
+    : 0;
+  const criticalReservoirs = filteredReservoirs.filter(r => r.currentLevel < 20).length;
+
   return (
-    <div className="main-content">
-      <div className="container">
-        <div className="dashboard-header">
-          <h1 className="page-title">Water Reservoir Dashboard</h1>
-          <p className="page-subtitle">
-            Monitor water levels and capacity of reservoirs in your area
-          </p>
-        </div>
-
-        <ReservoirSearch 
-          onSearch={handleSearch}
-          onReset={handleReset}
-          totalReservoirs={reservoirs.length}
-          filteredCount={filteredReservoirs.length}
-        />
-
-        <ReservoirList 
-          reservoirs={filteredReservoirs}
-          onRefresh={() => window.location.reload()}
-        />
+    <div className="dashboard">
+      <div className="dashboard-header">
+        <h1>Water Reservoir Dashboard</h1>
+        <p>Welcome back, {user.name}!</p>
       </div>
+      
+      <div className="stats-container">
+        <div className="stat-card">
+          <h3>Total Reservoirs</h3>
+          <p className="stat-number">{totalReservoirs}</p>
+        </div>
+        <div className="stat-card">
+          <h3>Average Capacity</h3>
+          <p className="stat-number">{averageCapacity}%</p>
+        </div>
+        <div className="stat-card">
+          <h3>Critical Levels</h3>
+          <p className="stat-number">{criticalReservoirs}</p>
+        </div>
+      </div>
+
+      <ReservoirSearch onSearch={handleSearch} onReset={handleReset} />
+      <ReservoirList reservoirs={filteredReservoirs} />
     </div>
   );
 };

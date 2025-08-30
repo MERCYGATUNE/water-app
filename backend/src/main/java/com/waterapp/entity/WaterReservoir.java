@@ -34,8 +34,8 @@ public class WaterReservoir {
     private String specificLocation;
     
     @NotNull(message = "Latitude is required")
-    @DecimalMin(value = "-4.0", message = "Latitude must be valid for Kenya")
-    @DecimalMax(value = "4.0", message = "Latitude must be valid for Kenya")
+    @DecimalMin(value = "-4.5", message = "Latitude must be valid for Kenya")
+    @DecimalMax(value = "4.5", message = "Latitude must be valid for Kenya")
     @Column(name = "latitude", nullable = false, precision = 10, scale = 8)
     private BigDecimal latitude;
     

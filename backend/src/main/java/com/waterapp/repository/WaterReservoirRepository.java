@@ -99,6 +99,6 @@ public interface WaterReservoirRepository extends JpaRepository<WaterReservoir, 
      * @param days number of days to check
      * @return List of reservoirs estimated to run out within the specified days
      */
-    @Query("SELECT r FROM WaterReservoir r WHERE r.estimatedRunoutDate <= CURRENT_DATE + :days AND r.isActive = true")
+    @Query("SELECT r FROM WaterReservoir r WHERE r.estimatedRunoutDate IS NOT NULL AND r.isActive = true")
     List<WaterReservoir> findReservoirsRunningOutSoon(@Param("days") int days);
 }

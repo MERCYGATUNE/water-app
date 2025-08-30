@@ -93,14 +93,54 @@ const ReservoirCard = ({ reservoir }) => {
         {isExpanded && (
           <div className="reservoir-details">
             <div className="detail-item">
+              <span className="detail-label">County:</span>
+              <span className="detail-value">{reservoir.county}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Sub-County:</span>
+              <span className="detail-value">{reservoir.subCounty}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Ward:</span>
+              <span className="detail-value">{reservoir.ward}</span>
+            </div>
+            <div className="detail-item">
               <span className="detail-label">Coordinates:</span>
               <span className="detail-value">
                 {reservoir.coordinates.lat.toFixed(4)}, {reservoir.coordinates.lng.toFixed(4)}
               </span>
             </div>
             <div className="detail-item">
-              <span className="detail-label">Reservoir ID:</span>
-              <span className="detail-value">{reservoir.id}</span>
+              <span className="detail-label">Total Capacity:</span>
+              <span className="detail-value">{reservoir.totalCapacityM3?.toLocaleString()} m³</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Current Level:</span>
+              <span className="detail-value">{reservoir.currentLevelM3?.toLocaleString()} m³</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Water Quality:</span>
+              <span className={`detail-value quality-${reservoir.waterQuality?.toLowerCase()}`}>
+                {reservoir.waterQuality}
+              </span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Managed By:</span>
+              <span className="detail-value">{reservoir.managedBy}</span>
+            </div>
+            {reservoir.description && (
+              <div className="detail-item">
+                <span className="detail-label">Description:</span>
+                <span className="detail-value">{reservoir.description}</span>
+              </div>
+            )}
+            <div className="detail-item">
+              <span className="detail-label">Contact Phone:</span>
+              <span className="detail-value">{reservoir.contactPhone}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Contact Email:</span>
+              <span className="detail-value">{reservoir.contactEmail}</span>
             </div>
           </div>
         )}
