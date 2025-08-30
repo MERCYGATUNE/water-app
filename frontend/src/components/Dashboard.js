@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReservoirSearch from './ReservoirSearch';
 import ReservoirList from './ReservoirList';
+import AIRecommendations from './AIRecommendations';
 import './Dashboard.css';
 
 const Dashboard = ({ user }) => {
@@ -88,6 +89,14 @@ const Dashboard = ({ user }) => {
     setFilteredReservoirs(reservoirs);
   };
 
+  const handleReservoirSelect = (selectedReservoir) => {
+    // Find the reservoir in our local data and filter to show it
+    const matchingReservoir = reservoirs.find(r => r.id === selectedReservoir.id);
+    if (matchingReservoir) {
+      setFilteredReservoirs([matchingReservoir]);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="dashboard">
@@ -147,6 +156,12 @@ const Dashboard = ({ user }) => {
           <p className="stat-number">{criticalReservoirs}</p>
         </div>
       </div>
+
+      {/* AI Recommendations Section */}
+      <AIRecommendations 
+        user={user} 
+        onReservoirSelect={handleReservoirSelect}
+      />
 
       <ReservoirSearch onSearch={handleSearch} onReset={handleReset} />
       <ReservoirList reservoirs={filteredReservoirs} />

@@ -25,9 +25,6 @@ const Login = ({ onLogin }) => {
     setError('');
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
       if (isSignUp) {
         // Sign up validation
         if (formData.password !== formData.confirmPassword) {
@@ -43,28 +40,65 @@ const Login = ({ onLogin }) => {
           return;
         }
         
-        // For demo purposes, create a new user
-        const userData = {
-          id: Date.now(),
-          name: formData.name,
-          email: formData.email
-        };
-        onLogin(userData);
+        // Call backend signup API
+        const signupResponse = await fetch('http://localhost:8080/api/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fullName: formData.name,
+            email: formData.email,
+            password: formData.password
+          })
+        });
+
+        if (!signupResponse.ok) {
+          const errorData = await signupResponse.json();
+          throw new Error(errorData.error || 'Signup failed');
+        }
+
+        const signupData = await signupResponse.json();
+        
+        // Store token and user data
+        localStorage.setItem('token', signupData.token);
+        localStorage.setItem('user', JSON.stringify(signupData.user));
+        
+        onLogin(signupData.user);
       } else {
         // Login validation
-        if (formData.email && formData.password) {
-          const userData = {
-            id: 1,
-            name: formData.email.split('@')[0],
-            email: formData.email
-          };
-          onLogin(userData);
-        } else {
+        if (!formData.email || !formData.password) {
           setError('Please fill in all fields');
+          return;
         }
+        
+        // Call backend login API
+        const loginResponse = await fetch('http://localhost:8080/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password
+          })
+        });
+
+        if (!loginResponse.ok) {
+          const errorData = await loginResponse.json();
+          throw new Error(errorData.error || 'Login failed');
+        }
+
+        const loginData = await loginResponse.json();
+        
+        // Store token and user data
+        localStorage.setItem('token', loginData.token);
+        localStorage.setItem('user', JSON.stringify(loginData.user));
+        
+        onLogin(loginData.user);
       }
     } catch (err) {
-      setError(isSignUp ? 'Sign up failed. Please try again.' : 'Login failed. Please try again.');
+      setError(err.message || (isSignUp ? 'Sign up failed. Please try again.' : 'Login failed. Please try again.'));
     } finally {
       setIsLoading(false);
     }
@@ -100,22 +134,20 @@ const Login = ({ onLogin }) => {
                 type="text"
                 id="name"
                 name="name"
-                className="form-control"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Enter your full name"
-                required={isSignUp}
+                required
               />
             </div>
           )}
           
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
               name="email"
-              className="form-control"
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email"
@@ -129,14 +161,13 @@ const Login = ({ onLogin }) => {
               type="password"
               id="password"
               name="password"
-              className="form-control"
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter your password"
               required
             />
           </div>
-
+          
           {isSignUp && (
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirm Password</label>
@@ -144,39 +175,26 @@ const Login = ({ onLogin }) => {
                 type="password"
                 id="confirmPassword"
                 name="confirmPassword"
-                className="form-control"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 placeholder="Confirm your password"
-                required={isSignUp}
+                required
               />
             </div>
           )}
           
-          <button 
-            type="submit" 
-            className="btn btn-primary login-btn"
-            disabled={isLoading}
-          >
-            {isLoading ? (isSignUp ? 'Creating Account...' : 'Signing In...') : (isSignUp ? 'Create Account' : 'Sign In')}
+          <button type="submit" className="submit-btn" disabled={isLoading}>
+            {isLoading ? 'Processing...' : (isSignUp ? 'Sign Up' : 'Sign In')}
           </button>
         </form>
         
         <div className="toggle-mode">
           <p>
             {isSignUp ? 'Already have an account?' : "Don't have an account?"}
-            <button 
-              type="button" 
-              className="toggle-btn"
-              onClick={toggleMode}
-            >
+            <button type="button" className="toggle-btn" onClick={toggleMode}>
               {isSignUp ? 'Sign In' : 'Sign Up'}
             </button>
           </p>
-        </div>
-        
-        <div className="demo-credentials">
-          <p>Demo: Use any email and password to login</p>
         </div>
       </div>
     </div>
