@@ -1,138 +1,168 @@
-# 💧 Water Reservoir App
+# Water Reservoir Management System
 
-A modern React frontend application for monitoring water reservoirs in your area. Users can login, search for reservoirs, and view detailed information about water capacity and estimated runout dates.
-
-## ✨ Features
-
-- **User Authentication**: Secure login system with demo credentials
-- **Reservoir Search**: Search reservoirs by name or location
-- **Real-time Data**: View current water levels and capacity
-- **Runout Predictions**: See when reservoirs are estimated to run out
-- **Responsive Design**: Beautiful UI that works on all devices
-- **Modern UI**: Clean white and blue color scheme with smooth animations
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (version 14 or higher)
-- npm or yarn package manager
-
-### Installation
-
-1. **Clone or download the project files**
-   ```bash
-   # If you have git installed
-   git clone <repository-url>
-   cd water-reservoir-app
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm start
-   ```
-
-4. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## 🔐 Demo Login
-
-For demonstration purposes, you can use any email and password combination:
-- **Email**: `demo@example.com`
-- **Password**: `password123`
+A comprehensive water reservoir management application built for Kenya, featuring real-time monitoring, intelligent forecasting, and user management.
 
 ## 🏗️ Project Structure
 
 ```
-src/
-├── components/          # React components
-│   ├── Header.js       # Navigation header
-│   ├── Login.js        # Login form
-│   ├── Dashboard.js    # Main dashboard
-│   ├── ReservoirSearch.js    # Search functionality
-│   ├── ReservoirList.js      # Reservoir list display
-│   └── ReservoirCard.js      # Individual reservoir cards
-├── App.js              # Main app component
-├── index.js            # App entry point
-└── index.css           # Global styles
+water/
+├── frontend/          # React.js frontend application
+├── backend/           # Java Spring Boot backend API
+└── README.md         # This file
 ```
 
-## 🎨 Design Features
+## 🚀 Quick Start
 
-- **Color Scheme**: White background with complementary blue accents
-- **Responsive Grid**: Adaptive layout for different screen sizes
-- **Interactive Cards**: Hover effects and expandable reservoir information
-- **Status Indicators**: Visual indicators for reservoir health (Good/Warning/Critical)
-- **Capacity Bars**: Visual representation of water levels
-- **Modern Typography**: Clean, readable fonts with proper hierarchy
+### Prerequisites
+- **Java 17** or higher
+- **Node.js 18** or higher
+- **Maven 3.6** or higher
 
-## 🔍 How to Use
+### 1. Start the Backend (Java Spring Boot)
 
-1. **Login**: Enter any email and password to access the app
-2. **Search**: Use the search bar to find specific reservoirs or filter by location
-3. **Browse**: View all available reservoirs in your area
-4. **Details**: Click on reservoir cards to see expanded information
-5. **Monitor**: Check water levels, capacity, and estimated runout dates
+```bash
+cd backend
+mvn spring-boot:run
+```
 
-## 📱 Responsive Design
+The backend will start on `http://localhost:8080/api`
 
-The app is fully responsive and works on:
-- Desktop computers
-- Tablets
-- Mobile phones
-- All modern web browsers
+### 2. Start the Frontend (React)
 
-## 🛠️ Built With
+```bash
+cd frontend
+npm install
+npm start
+```
 
-- **React 18** - Modern React with hooks
-- **React Router** - Client-side routing
-- **CSS3** - Custom styling with CSS variables
-- **HTML5** - Semantic markup
-- **JavaScript ES6+** - Modern JavaScript features
+The frontend will start on `http://localhost:3000`
 
-## 📊 Mock Data
+## 🌐 Application Features
 
-The app currently uses mock data for demonstration purposes. In a production environment, this would be replaced with:
-- Real API endpoints
-- Database connections
+### 🔐 Authentication
+- User login and signup
+- JWT-based security
+- Role-based access control
+
+### 🚰 Water Reservoir Management
+- **12 Authentic Kenyan Locations** including:
+  - Nairobi: Ndakaini Dam, Ruiru Dam
+  - Mombasa: Mbaraki Reservoir
+  - Nakuru: Lake Nakuru
+  - Kisumu: Kisumu Water Works
+  - Eldoret: Eldoret Dam
+  - And 7 more locations across Kenya
+
+### 📊 Real-time Monitoring
+- Water capacity and current levels
+- Water quality ratings
+- Estimated runout predictions
+- Contact information and management details
+
+### 🔍 Smart Search
+- Search by county, sub-county, and ward
+- Geographic location filtering
 - Real-time data updates
-- User authentication services
+
+## 🛠️ Technology Stack
+
+### Frontend
+- **React 18** with modern hooks
+- **CSS3** with custom design system
+- **Responsive design** for all devices
+
+### Backend
+- **Java 17** with Spring Boot 3.2.0
+- **Spring Security** with JWT authentication
+- **Spring Data JPA** with Hibernate
+- **H2 Database** (in-memory for development)
+- **Maven** for dependency management
+
+## 📁 Detailed Structure
+
+### Frontend (`/frontend`)
+```
+frontend/
+├── public/           # Static assets
+├── src/              # React source code
+│   ├── components/   # React components
+│   ├── App.js        # Main application
+│   └── index.js      # Entry point
+├── package.json      # Node.js dependencies
+└── README.md         # Frontend documentation
+```
+
+### Backend (`/backend`)
+```
+backend/
+├── src/main/java/com/waterapp/
+│   ├── config/       # Configuration classes
+│   ├── controller/   # REST API controllers
+│   ├── dto/          # Data Transfer Objects
+│   ├── entity/       # JPA entities
+│   ├── repository/   # Data access layer
+│   ├── security/     # Security configuration
+│   ├── service/      # Business logic
+│   └── util/         # Utility classes
+├── src/main/resources/
+│   └── application.yml # Application configuration
+└── pom.xml           # Maven configuration
+```
+
+## 🔧 Development
+
+### Running in Development Mode
+1. **Backend**: `cd backend && mvn spring-boot:run`
+2. **Frontend**: `cd frontend && npm start`
+
+### Building for Production
+1. **Backend**: `cd backend && mvn clean package`
+2. **Frontend**: `cd frontend && npm run build`
+
+## 🌍 Environment Configuration
+
+### Backend Configuration
+- **Port**: 8080
+- **Context Path**: `/api`
+- **Database**: H2 in-memory
+- **JWT Secret**: Configured in `application.yml`
+
+### Frontend Configuration
+- **Port**: 3000
+- **API Base URL**: `http://localhost:8080/api`
+- **Environment**: Development mode
+
+## 📱 Demo Credentials
+
+- **Email**: `john@example.com`
+- **Password**: `password123`
 
 ## 🚀 Deployment
 
-To build the app for production:
+### Backend Deployment
+- Build JAR: `mvn clean package`
+- Run: `java -jar target/water-reservoir-0.0.1-SNAPSHOT.jar`
 
-```bash
-npm run build
-```
-
-This creates a `build` folder with optimized production files that can be deployed to any static hosting service.
+### Frontend Deployment
+- Build: `npm run build`
+- Deploy `build/` folder to any static hosting service
 
 ## 🤝 Contributing
 
-Feel free to contribute to this project by:
-- Reporting bugs
-- Suggesting new features
-- Submitting pull requests
-- Improving documentation
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is licensed under the MIT License.
 
 ## 🆘 Support
 
-If you encounter any issues or have questions:
-1. Check the console for error messages
-2. Ensure all dependencies are installed
-3. Verify Node.js version compatibility
-4. Clear browser cache and cookies
+For support and questions, please open an issue in the GitHub repository.
 
 ---
 
-**Happy Water Monitoring! 💧**
+**Built with ❤️ for Kenya's water management needs**
