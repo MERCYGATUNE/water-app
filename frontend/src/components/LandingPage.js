@@ -33,9 +33,6 @@ const LandingPage = () => {
             <button onClick={() => scrollToSection('tech')} className="nav-link">
               Technology
             </button>
-            <button onClick={() => scrollToSection('about')} className="nav-link">
-              About
-            </button>
           </div>
           <div className="nav-actions">
             <button className="nav-login-btn" onClick={handleGoToDemo}>
