@@ -41,8 +41,8 @@ const startServer = async () => {
   try {
     await connectDB();
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`📱 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
+      console.log(`🚀 Water Oasis Server running on port ${PORT}`);
+      console.log(`📱 Frontend URL: http://localhost:3000`);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);

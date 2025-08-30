@@ -202,7 +202,7 @@ const LandingPage = () => {
         <div className="container">
           <div className="footer-content">
             <div className="footer-section">
-              <h4>Water Reservoir Management System</h4>
+              <h4>Water Oasis</h4>
               <p>Empowering Kenya with intelligent water resource management</p>
             </div>
             <div className="footer-section">
@@ -218,7 +218,7 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="footer-bottom">
-            <p>&copy; 2025 Water Reservoir Management System. All rights reserved.</p>
+            <p>&copy; 2025 Water Oasis. All rights reserved.</p>
           </div>
         </div>
       </footer>

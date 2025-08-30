@@ -120,8 +120,8 @@ const Login = ({ onLogin }) => {
       <div className="login-card">
         <div className="login-header">
           <div className="logo-icon">💧</div>
-          <h1>Water Reservoir App</h1>
-          <p>{isSignUp ? 'Create your account to start monitoring' : 'Sign in to access water reservoir information'}</p>
+          <h1>Welcome to Water Oasis</h1>
+          <p>{isSignUp ? 'Sign in to your account' : 'Create your account'}</p>
         </div>
         
         <form onSubmit={handleSubmit} className="login-form">

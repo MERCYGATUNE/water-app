@@ -101,8 +101,8 @@ const Dashboard = ({ user }) => {
     return (
       <div className="dashboard">
         <div className="dashboard-header">
-          <h1>Water Reservoir Dashboard</h1>
-          <p>Welcome back, {user.name}!</p>
+          <h1>Water Oasis Dashboard</h1>
+          <p>Monitor water reservoirs and get AI-powered insights</p>
         </div>
         <div className="loading-container">
           <div className="loading-spinner"></div>
@@ -116,8 +116,8 @@ const Dashboard = ({ user }) => {
     return (
       <div className="dashboard">
         <div className="dashboard-header">
-          <h1>Water Reservoir Dashboard</h1>
-          <p>Welcome back, {user.name}!</p>
+          <h1>Water Oasis Dashboard</h1>
+          <p>Monitor water reservoirs and get AI-powered insights</p>
         </div>
         <div className="error-container">
           <p className="error-message">{error}</p>
@@ -138,8 +138,8 @@ const Dashboard = ({ user }) => {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>Water Reservoir Dashboard</h1>
-        <p>Welcome back, {user.name}!</p>
+        <h1>Water Oasis Dashboard</h1>
+        <p>Monitor water reservoirs and get AI-powered insights</p>
       </div>
       
       <div className="stats-container">

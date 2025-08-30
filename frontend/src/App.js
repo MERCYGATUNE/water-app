@@ -48,7 +48,7 @@ function App() {
       <div className="App">
         <div className="loading-container">
           <div className="loading-spinner"></div>
-          <p>Loading Water Reservoir App...</p>
+          <p>Loading Water Oasis...</p>
         </div>
       </div>
     );
