@@ -13,8 +13,38 @@ const LandingPage = () => {
     document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollToSection = (sectionId) => {
+    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="landing-page">
+      {/* Navigation Bar */}
+      <nav className="landing-nav">
+        <div className="nav-container">
+          <div className="nav-logo">
+            <span className="logo-icon">💧</span>
+            <span className="logo-text">Water Oasis</span>
+          </div>
+          <div className="nav-links">
+            <button onClick={() => scrollToSection('features')} className="nav-link">
+              Features
+            </button>
+            <button onClick={() => scrollToSection('tech')} className="nav-link">
+              Technology
+            </button>
+            <button onClick={() => scrollToSection('about')} className="nav-link">
+              About
+            </button>
+          </div>
+          <div className="nav-actions">
+            <button className="nav-login-btn" onClick={handleGoToDemo}>
+              Login
+            </button>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
@@ -148,7 +178,7 @@ const LandingPage = () => {
       </section>
 
       {/* Technology Stack */}
-      <section className="tech-stack">
+      <section id="tech" className="tech-stack">
         <div className="container">
           <div className="section-header">
             <h2>🛠️ Technology Stack</h2>
